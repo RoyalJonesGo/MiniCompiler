@@ -19,24 +19,24 @@ public class MiniCompiler {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
 
-        // Code and Result Text Areas
+        // code and result text areas
         codeTextArea = new JTextArea();
         resultTextArea = new JTextArea();
         resultTextArea.setEditable(false);
 
-        // Buttons
+        // the buttons
         openFileBtn = new JButton("Open File");
         lexBtn = new JButton("Lexical Analysis");
         syntaxBtn = new JButton("Syntax Analysis");
         semanticBtn = new JButton("Semantic Analysis");
         clearBtn = new JButton("Clear");
 
-        // Disable buttons initially
+        // disable buttons initially
         lexBtn.setEnabled(false);
         syntaxBtn.setEnabled(false);
         semanticBtn.setEnabled(false);
 
-        // Vertical button panel
+        // vertical button panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(5, 1, 10, 10)); // 5 rows, equal spacing
         buttonPanel.setPreferredSize(new Dimension(200, 0)); // Fixed width for left panel
@@ -46,7 +46,7 @@ public class MiniCompiler {
         buttonPanel.add(semanticBtn);
         buttonPanel.add(clearBtn);
 
-        // Add labels for clarity
+        // add labels
         JPanel codePanel = new JPanel(new BorderLayout());
         codePanel.add(new JLabel("Code Text Area:"), BorderLayout.NORTH);
         codePanel.add(new JScrollPane(codeTextArea), BorderLayout.CENTER);
@@ -55,13 +55,17 @@ public class MiniCompiler {
         resultPanel.add(new JLabel("Result:"), BorderLayout.NORTH);
         resultPanel.add(new JScrollPane(resultTextArea), BorderLayout.CENTER);
 
-        // Layout of the main frame
-        frame.setLayout(new BorderLayout());
-        frame.add(buttonPanel, BorderLayout.WEST); // Buttons on the left
-        frame.add(codePanel, BorderLayout.CENTER); // Code text area in the center
-        frame.add(resultPanel, BorderLayout.SOUTH); // Result at the bottom
+        
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, codePanel, resultPanel);
+        splitPane.setResizeWeight(0.5); // give equal space initially
+        splitPane.setDividerLocation(300); 
 
-        // Add action listeners for buttons
+        // main frame layout
+        frame.setLayout(new BorderLayout());
+        frame.add(buttonPanel, BorderLayout.WEST); // buttons on the left
+        frame.add(splitPane, BorderLayout.CENTER); // code and result areas in center
+
+        
         addEventHandlers();
 
         frame.setVisible(true);
