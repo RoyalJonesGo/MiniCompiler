@@ -6,8 +6,8 @@ public class SemanticAnalyzer {
         Set<String> declaredVariables = new HashSet<>();
         for (String line : lines) {
             String[] parts = line.split("\\s+");
-            String variable = parts[1]; // Extract variable name
-            String type = line.split(":")[1].split("=")[0].trim(); // Extract type
+            String variable = parts[1]; // extract variable name
+            String type = line.split(":")[1].split("=")[0].trim(); // extract type
             if (declaredVariables.contains(variable)) {
                 throw new Exception("Semantic Error: Variable " + variable + " redeclared.");
             }
@@ -32,6 +32,8 @@ public class SemanticAnalyzer {
                 return value.matches("\".*\"");
             case "bool":
                 return value.matches("true|false");
+            case "char":
+                return value.matches("'.'");
             default:
                 return false;
         }
